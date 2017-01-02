@@ -20,8 +20,8 @@ function startGame() {
 
 function startup(){
   var trial = 0;
-  var minalt = 50;
-  var maxalt = 100;
+  var minalt = 50;  //adjust here
+  var maxalt = 3000; //          and here to spawn at different heights
   var foundpos = false;
   do{
     seed = Math.random()*10;
