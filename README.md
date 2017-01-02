@@ -3,6 +3,7 @@ A proof of concept (messing around) with creating a 3D first person free roaming
 
 
 Move around - WASD
+
 Tilt head (up and down) - up/down arrows
 
 Gun - does nothing :-), dont panic, no zomies either!
