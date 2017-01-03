@@ -21,7 +21,7 @@ function startGame() {
 function startup(){
   var trial = 0;
   var minalt = 5;  //adjust here
-  var maxalt = 50; //          and here to spawn at different heights
+  var maxalt = 5000; //          and here to spawn at different heights
   var foundpos = false;
   do{
     seed = Math.random()*10;
@@ -120,7 +120,6 @@ function mapper(x,y,a){
     var a = player.angle;
     var TrueAngle;
     ctx = myGameArea.context;
-    //sky
     var alt = Altitude(player.x,player.y);
     for (d = scale; d > 50; d*=0.8){
       for (angle =0; angle<(2*Math.PI);angle += Math.PI/20){
@@ -167,7 +166,11 @@ function viewer(x,y,a) {
         ctx = myGameArea.context;
         //sky
         //195 - blue
-        ctx.fillStyle = 'hsl(195, 53%,' + ((80-Current_Altitude/50)) +'% )';
+        var grd=ctx.createLinearGradient(0,0, 0,Cheight/2);
+        grd.addColorStop(0,'hsl(195, 53%,' + ((80-Current_Altitude/100)) +'% )');
+        grd.addColorStop(1,"LightGoldenRodYellow");
+
+        ctx.fillStyle=grd;
         ctx.fillRect(0,0,Cwidth,Cheight);
         var startangle = 0;
         for (d = D; d >1; d*=0.8){
