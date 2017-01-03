@@ -7,7 +7,7 @@ var Cheight = 900;
 var oldstamp = Date.now();
 var newstamp;
 var img = new Image();
-
+var tide= 0;
 function startGame() {
     img.src = 'portal_gun.png';
     viewport = new viewer();
@@ -20,8 +20,8 @@ function startGame() {
 
 function startup(){
   var trial = 0;
-  var minalt = 50;  //adjust here
-  var maxalt = 3000; //          and here to spawn at different heights
+  var minalt = 5;  //adjust here
+  var maxalt = 50; //          and here to spawn at different heights
   var foundpos = false;
   do{
     seed = Math.random()*10;
@@ -47,7 +47,7 @@ var myGameArea = {
         this.canvas.height = Cheight;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-        this.interval = setInterval(updateGameArea, 60);
+        this.interval = setInterval(updateGameArea, 250);
         document.onkeydown = checkKey;
     },
     clear : function() {
@@ -169,8 +169,8 @@ function viewer(x,y,a) {
         //195 - blue
         ctx.fillStyle = 'hsl(195, 53%,' + ((80-Current_Altitude/50)) +'% )';
         ctx.fillRect(0,0,Cwidth,Cheight);
-
-        for (d = D; d >1; d*=0.9){
+        var startangle = 0;
+        for (d = D; d >1; d*=0.8){
           shade = (100-10*Math.log(d));
           ctx.beginPath();
           //start at bottom of screen
@@ -179,7 +179,8 @@ function viewer(x,y,a) {
           //rotate view from left to right
           DrawX = 0;
           DrawY = Cheight;
-          for (angle =0; angle<(viewingangle/180*Math.PI);angle += (viewingangle/60)/180*Math.PI) {
+          startangle -= (viewingangle/60)/180*Math.PI/3;
+          for (angle =startangle; angle<(viewingangle/180*Math.PI);angle += (viewingangle/60)/180*Math.PI) {
             ctx.beginPath();
             //start at bottom of screen
             ctx.moveTo(Cwidth,Cheight);
@@ -189,13 +190,14 @@ function viewer(x,y,a) {
             X = x - d*Math.sin(TrueAngle);
             Y = y + d*Math.cos(TrueAngle);
             tempalt = Altitude(X,Y);
+            tide = tide + 1/1000;
             switch (true) {
-              case (tempalt > 0.5):
+              case (tempalt > 1*Math.sin(2*Math.PI*0.02*tide)):
                 altcol = 10 + (5000-tempalt)*(142/5000); //hill colors
                 break;
               default:
                 tempalt=0;
-                altcol = 230;
+                altcol = 230 -2+4*Math.random();
                 break;
             }
             tempangle = Math.atan((tempalt-(h+Current_Altitude))/d)+player.headtilt;
