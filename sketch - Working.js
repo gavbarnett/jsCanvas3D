@@ -150,7 +150,7 @@ function viewer(x,y,a) {
       var shade = 5;
       var x = player.x;
       var y = player.y;
-      var h = player.height;
+      var h = player.height+Math.random()*0.1;
       var a = player.angle;
       var X,Y;
       //var h=2;
@@ -236,7 +236,7 @@ function viewer(x,y,a) {
         ctx.fillText('FPS: '+  Math.round(1/((newstamp-oldstamp)/1000)) ,10, 80);
         var W = 175*5
         var H = 103*5
-        ctx.drawImage(img, Cwidth-W, Cheight-H,W,H );
+        ctx.drawImage(img, Cwidth-W+Math.random()*10, Cheight-H+Math.random()*10,W,H);
     }
 }
 
