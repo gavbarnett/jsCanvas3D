@@ -192,7 +192,7 @@ function viewer(x,y,a) {
             tempalt = Altitude(X,Y);
             tide = tide + 1/1000;
             switch (true) {
-              case (tempalt > 1*Math.sin(2*Math.PI*0.02*tide)):
+              case (tempalt > 0.5*Math.sin(2*Math.PI*0.02*tide)):
                 altcol = 10 + (5000-tempalt)*(142/5000); //hill colors
                 break;
               default:
